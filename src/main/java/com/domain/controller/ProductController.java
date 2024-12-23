@@ -51,8 +51,11 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> findOne(@PathVariable Long id) {
-        return productService.findOne(id);
+    public ResponseEntity<ResponseData<Product>> findOne(@PathVariable Long id) {
+        ResponseData<Product> responseData = new ResponseData<>();
+        responseData.setStatus(true);
+        responseData.setPayload(productService.findOne(id));
+        return ResponseEntity.ok(responseData);
     }
 
     @PutMapping
