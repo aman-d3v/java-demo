@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.domain.handler.ResponseHandler;
 import com.domain.models.entities.Product;
 import com.domain.models.repos.ProductRepo;
 
@@ -24,13 +23,9 @@ public class ProductService {
         return productRepo.save(product);
     }
 
-    public ResponseEntity<Object> findOne(Long id) {
+    public Product findOne(Long id) {
 
-        Optional<Product> product = productRepo.findById(id);
-        if (!product.isPresent()) {
-            return ResponseHandler.generateResponse("success", HttpStatus.OK, null, 2);
-        }
-        return ResponseHandler.generateResponse("success", HttpStatus.OK, product.get(), 2);
+        return productRepo.findById(id).get();
     }
 
     public Iterable<Product> findAll() {
